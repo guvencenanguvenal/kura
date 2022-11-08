@@ -1,13 +1,13 @@
-package gcg.mapper.kura.core;
+package gcg.mapper.kura.core.mapper;
 
-import gcg.mapper.kura.config.MapConfiguration;
+import gcg.mapper.kura.core.Mapper;
 import gcg.mapper.kura.proxy.Proxy;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
-public final class CoreMapper implements Mapper{
+public final class BasicMapper implements Mapper {
 
     @Override
     public <S, D> D map(Proxy<S> source, Proxy<D> destination) {
@@ -17,10 +17,5 @@ public final class CoreMapper implements Mapper{
             destination.setFieldValue(destinationField, fieldValue);
         }
         return destination.getInstance();
-    }
-
-    @Override
-    public <S, D> D map(Proxy<S> source, Proxy<D> destination, List<MapConfiguration> configuration) {
-        return null;
     }
 }

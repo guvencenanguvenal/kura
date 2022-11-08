@@ -15,12 +15,12 @@ import java.util.Objects;
  */
 public class Proxy<T> {
 
-    private T instance;
-    private Class<T> clazz;
+    private final T instance;
+    private final Class<T> clazz;
 
-    public Proxy(T obj) {
-        this.instance = obj;
-        this.clazz = (Class<T>) obj.getClass();
+    public Proxy(T instance) {
+        this.instance = instance;
+        this.clazz = (Class<T>) instance.getClass();
     }
 
     public Constructor getConstructor() throws NoZeroArgConstructorException {
