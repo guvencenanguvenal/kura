@@ -23,7 +23,7 @@ public class Proxy<T> {
         this.clazz = (Class<T>) instance.getClass();
     }
 
-    public Constructor getConstructor() throws NoZeroArgConstructorException {
+    public Constructor<T> getConstructor() throws NoZeroArgConstructorException {
         try {
             return this.clazz.getDeclaredConstructor();
         } catch (NoSuchMethodException e) {
@@ -41,7 +41,8 @@ public class Proxy<T> {
 
     public void setFieldValue(Field field, Object value) {
         Method method = MethodUtil.getAvailableMethod(this.clazz,
-                MethodNameEnum.SET.getFieldMethodName(field.getName()));
+                MethodNameEnum.SET.getFieldMethodName(field.getName()),
+                field.getType());
         if (Objects.nonNull(method)) {
             this.runMethod(method, value);
         }
