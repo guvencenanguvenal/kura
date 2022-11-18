@@ -3,12 +3,13 @@ package gcg.mapper.kura.proxy;
 import gcg.mapper.kura.core.enums.MethodNameEnum;
 import gcg.mapper.kura.core.util.MethodUtil;
 import gcg.mapper.kura.exception.NoZeroArgConstructorException;
+import gcg.mapper.kura.exception.NotFoundGetterMethodException;
+import gcg.mapper.kura.exception.NotFoundSetterMethodException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 /**
  * @author guvencenanguvenal
@@ -39,30 +40,33 @@ public class Proxy<T> {
         return this.clazz;
     }
 
-    public void setFieldValue(Field field, Object value) {
-        Method method = MethodUtil.getAvailableMethod(this.clazz,
-                MethodNameEnum.SET.getFieldMethodName(field.getName()),
-                field.getType());
-        if (Objects.nonNull(method)) {
-            this.runMethod(method, value);
+    public void setFieldValue(Field field, Object value) throws NotFoundSetterMethodException {
+        Method method;
+        try {
+            method = MethodUtil.getAvailableMethod(this.clazz,
+                    MethodNameEnum.SET.getFieldMethodName(field.getName()),
+                    field.getType());
+        } catch (NoSuchMethodException e) {
+            throw new NotFoundSetterMethodException();
         }
+        this.runMethod(method, value);
     }
 
-    public Object getFieldValue(Field field) {
-        Method method = MethodUtil.getAvailableMethod(this.clazz,
-                MethodNameEnum.GET.getFieldMethodName(field.getName()));
-        if (Objects.nonNull(method)) {
-            return this.runMethod(method);
+    public Object getFieldValue(Field field) throws NotFoundGetterMethodException {
+        Method method;
+        try {
+            method = MethodUtil.getAvailableMethod(this.clazz,
+                    MethodNameEnum.GET.getFieldMethodName(field.getName()));
+        } catch (NoSuchMethodException e) {
+            throw new NotFoundGetterMethodException();
         }
-        return null;
+        return this.runMethod(method);
     }
 
     public Object runMethod(Method method, Object... args) {
         try {
             return method.invoke(this.instance, args);
-        } catch (IllegalAccessException e) {
-            return null;
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             return null;
         }
     }

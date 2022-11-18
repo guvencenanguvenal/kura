@@ -1,5 +1,8 @@
 package gcg.mapper.kura.core.mapper;
 
+import gcg.mapper.kura.exception.NoZeroArgConstructorException;
+import gcg.mapper.kura.exception.NotFoundGetterMethodException;
+import gcg.mapper.kura.exception.NotFoundSetterMethodException;
 import gcg.mapper.kura.factory.ProxyFactory;
 import gcg.mapper.kura.proxy.Proxy;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +23,7 @@ class BasicMapperTest {
     }
 
     @Test
-    void map() {
+    void map() throws NotFoundSetterMethodException, NoZeroArgConstructorException, NotFoundGetterMethodException {
         Test1 test1 = new Test1();
         Test2 test2 = new Test2();
         Proxy<Test1> test1Proxy = ProxyFactory.getProxy(test1);

@@ -7,11 +7,7 @@ import java.lang.reflect.Method;
  */
 public final class MethodUtil {
 
-    public static <T> Method getAvailableMethod(Class clazz, String methodName, Class<T>... params) {
-        try {
-            return clazz.getMethod(methodName, params);
-        } catch (NoSuchMethodException e) {
-            return null;
-        }
+    public static <T> Method getAvailableMethod(Class clazz, String methodName, Class<T>... params) throws NoSuchMethodException {
+        return clazz.getMethod(methodName, params);
     }
 }

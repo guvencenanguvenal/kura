@@ -1,6 +1,7 @@
 package gcg.mapper.kura.core.cache;
 
 import gcg.mapper.kura.exception.NoZeroArgConstructorException;
+import gcg.mapper.kura.exception.NotFoundGetterMethodException;
 import gcg.mapper.kura.proxy.Proxy;
 
 import java.lang.reflect.Constructor;
@@ -35,7 +36,7 @@ public class CacheableProxy<T> extends Proxy<T> {
     }
 
     @Override
-    public Object getFieldValue(Field field) {
+    public Object getFieldValue(Field field) throws NotFoundGetterMethodException {
         if (fieldNameValueCache.isEmpty()) {
             fieldNameValueCache.put(field.getName(), super.getFieldValue(field));
         }
