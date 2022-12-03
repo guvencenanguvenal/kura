@@ -23,7 +23,7 @@ public class BasicKuraMapper implements KuraMapper {
     }
 
     @Override
-    public <S, D> D map(S source, Class<D> destination) throws NotFoundSetterMethodException, NotFoundGetterMethodException, NoZeroArgConstructorException {
-        return mapper.map(ProxyFactory.getProxy(source), ProxyFactory.getProxy(destination));
+    public <S, D> D map(S source, Class<D> destinationClazz) throws NotFoundSetterMethodException, NotFoundGetterMethodException, NoZeroArgConstructorException {
+        return mapper.map(ProxyFactory.getProxy(source), ProxyFactory.getProxy(destinationClazz));
     }
 }

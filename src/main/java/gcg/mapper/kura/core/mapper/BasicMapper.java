@@ -4,9 +4,11 @@ import gcg.mapper.kura.core.Mapper;
 import gcg.mapper.kura.exception.NoZeroArgConstructorException;
 import gcg.mapper.kura.exception.NotFoundGetterMethodException;
 import gcg.mapper.kura.exception.NotFoundSetterMethodException;
+import gcg.mapper.kura.factory.ProxyFactory;
 import gcg.mapper.kura.proxy.Proxy;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
