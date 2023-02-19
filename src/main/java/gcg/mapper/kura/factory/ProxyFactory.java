@@ -10,12 +10,12 @@ import java.lang.reflect.InvocationTargetException;
  */
 public final class ProxyFactory {
 
-    public static <T> Proxy<T> getProxy(T obj) {
+    public static <T> Proxy<T> createFactory(T obj) {
         return new Proxy<>(obj);
     }
 
-    public static <T> Proxy<T> getProxy(Class<T> clazz) throws NoZeroArgConstructorException {
-        T obj = null;
+    public static <T> Proxy<T> createFactory(Class<T> clazz) throws NoZeroArgConstructorException {
+        T obj;
         try {
             obj = clazz.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |

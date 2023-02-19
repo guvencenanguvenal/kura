@@ -1,38 +1,32 @@
-package gcg.mapper.kura.core.mapper;
+package gcg.mapper.kura;
 
 import gcg.mapper.kura.exception.NoZeroArgConstructorException;
 import gcg.mapper.kura.exception.NotFoundGetterMethodException;
 import gcg.mapper.kura.exception.NotFoundSetterMethodException;
-import gcg.mapper.kura.factory.ProxyFactory;
-import gcg.mapper.kura.proxy.Proxy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * @author guvencenanguvenal
- */
-class BasicMapperTest {
+class KuraMapperTest {
 
-    private BasicMapper testClass;
+    private KuraMapper kuraMapper;
 
     @BeforeEach
-    public void before() {
-        testClass = new BasicMapper();
+    public void beforeEach() {
+        kuraMapper = new KuraMapper();
     }
 
     @Test
     void map() throws NotFoundSetterMethodException, NoZeroArgConstructorException, NotFoundGetterMethodException {
-        Test1 test1 = new Test1();
-        Test2 test2 = new Test2();
-        Proxy<Test1> test1Proxy = ProxyFactory.createFactory(test1);
-        Proxy<Test2> test2Proxy = ProxyFactory.createFactory(test2);
-        test2 = testClass.map(test1Proxy, test2Proxy);
+        KuraMapperTest.Test1 test1 = new KuraMapperTest.Test1();
+        KuraMapperTest.Test2 test2 = new KuraMapperTest.Test2();
+        test2 = kuraMapper.map(test1, test2.getClass());
         assertEquals(test1.getDataInt(), test2.getDataInt());
         assertEquals(test1.getDataLong(), test2.getDataLong());
         assertEquals(test1.getDataStr(), test2.getDataStr());
     }
+
 
     public static class Test1 {
         private Integer dataInt = 1;
@@ -93,4 +87,5 @@ class BasicMapperTest {
             this.dataStr = dataStr;
         }
     }
+
 }
